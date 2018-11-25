@@ -1,6 +1,7 @@
-import { TriangleChallengeComponent } from './triangle-challenge/triangle-challenge.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { TriangleChallengeComponent } from './components/triangle-challenge/triangle-challenge.component';
 
 const routes: Routes = [ {
   path: '',

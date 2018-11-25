@@ -1,3 +1,4 @@
+import { TriangleChallengeService } from "./../../services/triangle-challenge.service";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { TriangleChallengeComponent } from "./triangle-challenge.component";
@@ -10,11 +11,13 @@ describe("TriangleChallengeComponent", () => {
   let fixture: ComponentFixture<TriangleChallengeComponent>;
   let debug: DebugElement;
   let element = HTMLElement;
+  let service: TriangleChallengeService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TriangleChallengeComponent],
-      imports: [FormsModule, ReactiveFormsModule]
+      imports: [FormsModule, ReactiveFormsModule],
+      providers: [TriangleChallengeService]
     })
       .compileComponents()
       .then(() => {
@@ -23,6 +26,7 @@ describe("TriangleChallengeComponent", () => {
         component.ngOnInit();
         debug = fixture.debugElement.query(By.css("form"));
         element = debug.nativeElement;
+        service = debug.injector.get(TriangleChallengeService);
       });
   }));
 
@@ -31,7 +35,6 @@ describe("TriangleChallengeComponent", () => {
     spyOn(component, "onSubmit");
     let button = fixture.debugElement.nativeElement.querySelector("button");
     button.click();
-    //expect(component.onSubmit).toHaveBeenCalledTimes(0);
     fixture.whenStable().then(() => {
       expect(component.onSubmit).toHaveBeenCalledTimes(0);
     });
@@ -70,12 +73,12 @@ describe("TriangleChallengeComponent", () => {
     expect(errors["required"]).toBeTruthy();
   });
   it("should check condition and it is not a triangle", () => {
-    expect(component.checkCondition(1, 0, 2)).toBeFalsy();
+    expect(service.checkCondition(1, 0, 2)).toBeFalsy();
   });
   it("should define triangle type and it is equilateral", () => {
-    expect(component.AllSidesAreEqual(3, 3, 3)).toBeTruthy();
+    expect(service.AllSidesAreEqual(3, 3, 3)).toBeTruthy();
   });
   it("should define triangle type and it is isoceles", () => {
-    expect(component.AtLeastTwoSideAreEqual(3, 4, 3)).toBeTruthy();
+    expect(service.AtLeastTwoSideAreEqual(3, 4, 3)).toBeTruthy();
   });
 });

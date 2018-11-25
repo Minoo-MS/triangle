@@ -1,10 +1,12 @@
+import { TriangleChallengeService } from './../../services/triangle-challenge.service';
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-triangle-challenge",
   templateUrl: "./triangle-challenge.component.html",
-  styleUrls: ["./triangle-challenge.component.scss"]
+  styleUrls: ["./triangle-challenge.component.scss"],
+  providers:[TriangleChallengeService]
 })
 export class TriangleChallengeComponent implements OnInit {
   myform: FormGroup;
@@ -14,7 +16,7 @@ export class TriangleChallengeComponent implements OnInit {
 
   errMsg: string = "";
   successMsg: string = "";
-  constructor() {}
+  constructor(private triangleChallengeService :TriangleChallengeService) {}
 
   ngOnInit() {
     this.createFormControls();
@@ -34,42 +36,24 @@ export class TriangleChallengeComponent implements OnInit {
     });
   }
 
-  checkCondition(side1, side2, side3): boolean {
-    if (
-      side1 <= 0 ||
-      side2 <= 0 ||
-      side3 <= 0 ||
-      side1 + side2 <= side3 ||
-      side1 + side3 <= side2 ||
-      side2 + side3 <= side1
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+ 
   triangleType(side1, side2, side3): void {
-    if (this.AllSidesAreEqual(side1, side2, side3)) {
+    if (this.triangleChallengeService.AllSidesAreEqual(side1, side2, side3)) {
       this.successMsg = "The triangle is equilateral";
-    } else if (this.AtLeastTwoSideAreEqual(side1, side2, side3)) {
+    } else if (this.triangleChallengeService.AtLeastTwoSideAreEqual(side1, side2, side3)) {
       this.successMsg = "The triangle is isoceles";
     } else {
       this.successMsg = "The triangle is scalene";
     }
   }
 
-  AllSidesAreEqual(side1, side2, side3): boolean {
-    return side1 == side2 && side2 == side3;
-  }
-  AtLeastTwoSideAreEqual(side1, side2, side3): boolean {
-    return side1 == side2 || side2 == side3 || side1 == side3;
-  }
+ 
   onSubmit() {
     debugger;
     this.successMsg = "";
     this.errMsg = "";
     if (
-      this.checkCondition(this.side1.value, this.side2.value, this.side3.value)
+      this.triangleChallengeService.checkCondition(this.side1.value, this.side2.value, this.side3.value)
     ) {
       this.triangleType(this.side1.value, this.side2.value, this.side3.value);
     } else {

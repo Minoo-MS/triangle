@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <h4>Enter the value of sides to specify the type of triangle</h4>
+  </div>
+  <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()">
+      <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="side1">Side1</label>
+              <input
+              type="number"
+              class="form-control"
+              formControlName="side1"
+              required
+              min="1"
+            />
+              <span
+                class="alert-danger custom"
+                *ngIf="side1.touched && !side1.valid"
+                >Please specify the first length.</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="side2">Side2</label>
+                <input
+              type="number"
+              class="form-control"
+              formControlName="side2"
+              required
+              min="1"
+            />
+                <span
+                  class="alert-danger custom"
+                  *ngIf="side2.touched && !side2.valid"
+                  >Please specify the second length.</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="side3">Side3</label>
+                <input
+              type="number"
+              class="form-control"
+              formControlName="side3"
+              required
+              min="1"
+            />
+                <span
+                  class="alert-danger custom"
+                  *ngIf="side3.touched && !side3.valid"
+                  >Please specify the third length.</span
+                >
+              </div>
+            </div>
+          </div>
+    <button type="submit" [disabled]="!myform.valid" class="btn btn-primary">Submit</button>
+    <div class="row">
+        <div class="alert alert-danger" *ngIf="this.errMsg != ''">
+          {{ this.errMsg }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="alert alert-success" *ngIf="this.successMsg != ''">
+          {{ this.successMsg }}
+        </div>
+      </div>
+  </form>
+</div>
