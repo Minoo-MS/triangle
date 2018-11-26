@@ -1,0 +1,6 @@
+The project is built with Angular CLI 7 ,
+All the logical methods are placed in Service and the structure is shown by foldering Component,Services,Models(we dont have any model here).
+The approach of Model Driven Forms(Reactive Forms) is chosen to implement the form as it is much more powerful,
+more complex validation logic is actually simpler to implement using them and we can unit test the form validation logic.
+The bootstrap and its style is used here.
+I also wrote some unit tests for the main component to test the form,validation and methods of service
